@@ -1,8 +1,8 @@
 FROM node:18
 
-WORKDIR /Users/adilmohammed/Documents/GitHub/VikBot/frontend/src/App.jsx
+WORKDIR /VikBot
 
-COPY . /Users/adilmohammed/Documents/GitHub/VikBot/frontend/src/App.jsx
+COPY . /VikBot
 
 RUN npm install
 
