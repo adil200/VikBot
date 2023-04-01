@@ -4,6 +4,11 @@
    "tag": "greeting",
    "patterns": [
       "Hi",
+      "Hii",
+      "Hiii",
+      "Helloo",
+      "helllo",
+      "Hi there",
       "Is anyone there?",
       "Hello",
       "Good day",
@@ -2817,5 +2822,3 @@
 
    ]
 }
-
-
