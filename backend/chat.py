@@ -1,4 +1,4 @@
-import nltk
+import nltk, json
 import pickle
 import numpy as np
 import json
@@ -35,7 +35,7 @@ def predict_class(sentence, model):
     results = [(i, j) for i, j in enumerate(res) if j > ERROR_THRESHOLD]
     results.sort(key=lambda x: x[1], reverse=True)
     return_list = [{"intent": classes[k[0]], "probability": str(k[1])} for k in results]
-    return return_list
+    return return_list  
 
 def getResponse(ints, intents_json):
     tag = ints[0]['intent']
@@ -59,8 +59,25 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 @socketio.on('message')
 def handle_message(data):
     response = chatbotResponse(data['message'])
-    print(response)
+    #print(response)
     emit('recv_message', response)
+
+@socketio.on('initial_message')
+def handle_data(data):
+    details = data['message'].split(',')
+    user = {
+        'name': details[0],
+        'email': details[1],
+        'number': details[2]
+    }
+    with open('data.json', 'r') as f:
+        dt = json.load(f)
+    
+    dt['users'].append(user)
+
+    with open('data.json', 'w') as f:
+        json.dump(dt, f, indent=4)
+
 
 if __name__ == "__main__":
     socketio.run(app, debug=True)
